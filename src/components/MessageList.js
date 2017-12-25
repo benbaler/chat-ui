@@ -8,8 +8,8 @@ class MessageList extends Component {
     return (
       <div>
       	{messages.map((message, i) =>
-	  <Message key={i} {...message} highlightMessage={username === message.username}/>
-	)}
+      	  <Message key={i} {...message} highlightMessage={username === message.username}/>
+      	)}
       </div>
     )
   }

@@ -10,6 +10,7 @@ const mapStateToProps = (state) => {
 	}
 }
 
+// Add this dispach functions to the props of the component.
 const mapDispatchToProps = dispatch => ({
 	onNewMessage({username}) {
 		dispatch(

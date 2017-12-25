@@ -11,6 +11,7 @@ import { setRandomAvatar, addMessage } from './actions'
 import { SocketProvider } from 'socket.io-react';
 import io from 'socket.io-client';
 
+// Initial state with presaved data from local storage or just a sample data if not exists.
 const initialState = (localStorage['redux-store']) ?
   JSON.parse(localStorage['redux-store']) : sampleData
 
@@ -18,13 +19,15 @@ const store = createStore(appReducer, initialState)
 
 store.subscribe(() => console.log(store.getState()))
 
+// Save the state after every change.
 store.subscribe(() => 
     localStorage["redux-store"] = JSON.stringify(store.getState()))
 
+// Generate a random avatar for each user if not exists.
 store.getState().user.avatar || store.dispatch(setRandomAvatar())
 
 const socket = io.connect('https://spotim-demo-chat-server.herokuapp.com');
-
+// Listen to messages broadcast.
 socket.on('spotim/chat', msg => {
   store.dispatch(addMessage(msg.avatar, msg.username, msg.date, msg.text))
 });
@@ -32,13 +35,13 @@ socket.on('spotim/chat', msg => {
 class App extends Component {
   render() {
     return (
-    	<SocketProvider socket={socket}>
-	    	<MuiThemeProvider>
-	    		<Provider store={store}>
-	    			<Chat />
-	    		</Provider>
-	      </MuiThemeProvider>
-      </SocketProvider>
+	    <MuiThemeProvider>
+          <Provider store={store}>
+            <SocketProvider socket={socket}>
+    	    		<Chat />
+            </SocketProvider>
+          </Provider>
+	    </MuiThemeProvider>
     )
   }
 }

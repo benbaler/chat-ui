@@ -3,6 +3,7 @@ import {Card, CardHeader, CardText, CardActions} from 'material-ui/Card'
 import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
 import { socketConnect } from 'socket.io-react';
+import './MessageComposer.css';
 
 class MessageComposer extends Component {
 	constructor(props) {
@@ -13,9 +14,11 @@ class MessageComposer extends Component {
   onSubmit = (e) =>  {
   	e.preventDefault()
   	const date = new Date().toString();
+  	// This used to save the messages localy but now we used it only to update username and to clear the message field.
     this.props.onNewMessage({
     	username: this._username.getValue()
     })
+    // Broadcast the new message.
     this.props.socket.emit('spotim/chat', {
     	avatar: this.props.avatar,
     	username: this._username.getValue(),

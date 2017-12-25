@@ -3,11 +3,7 @@ import {Card, CardHeader, CardText} from 'material-ui/Card'
 
 import './Message.css'
 
-export const Message = ({avatar,
-												 username,
-												 date,
-												 message,
-												 highlightMessage}) => (
+export const Message = ({avatar, username, date, message, highlightMessage}) => (
 	<Card className={highlightMessage ? 'highlight-message' : ''}>
     <CardHeader
       avatar={avatar}

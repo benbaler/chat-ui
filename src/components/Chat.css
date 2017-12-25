@@ -1,7 +1,9 @@
 .chat {
-	position: absolute;
-	bottom: 0px;
-	left: 0px;
-	width: 500px;
+	border: 1px solid LightGray;
+	bottom: 20px;
+	left: 20px;
+	max-height: 800px;
 	overflow: auto;
+	position: absolute;
+	width: 500px;
 }

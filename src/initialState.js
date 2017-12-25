@@ -1,3 +1,4 @@
+// Sample state data
 export default { 
 	user: {
 		avatar: '',

@@ -1,0 +1,4 @@
+/* Fix Firefox red outline */
+input, textarea {
+	box-shadow: none !important;
+}
