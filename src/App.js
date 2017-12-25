@@ -17,7 +17,7 @@ const initialState = (localStorage['redux-store']) ?
 
 const store = createStore(appReducer, initialState)
 
-store.subscribe(() => console.log(store.getState()))
+// store.subscribe(() => console.log(store.getState()))
 
 // Save the state after every change.
 store.subscribe(() => 

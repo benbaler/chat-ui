@@ -8,7 +8,12 @@ import './MessageComposer.css';
 class MessageComposer extends Component {
 	constructor(props) {
 		super(props)
+		this.state = {
+			message: props.message
+		}
+
 		this.onSubmit = this.onSubmit.bind(this);
+		this.handleChange = this.handleChange.bind(this);
 	}
 
   onSubmit = (e) =>  {
@@ -23,12 +28,19 @@ class MessageComposer extends Component {
     	avatar: this.props.avatar,
     	username: this._username.getValue(),
     	date: date,
-    	text: this._message.getValue()
+    	text: this.state.message
     })
+
+    // Clear message.
+    this.setState({message: ''});
+  }
+
+  handleChange = (e) => {
+  	this.setState({message: e.target.value});
   }
 
   render() {
-		const {avatar, username, message, onNewMessage} = this.props
+		const {avatar, username} = this.props
 	  return (
 	  	<form onSubmit={this.onSubmit}>
 				<Card>
@@ -42,12 +54,13 @@ class MessageComposer extends Component {
 				  						 fullWidth={true}
 				  						 ref={input => this._username = input}
 				  						 required />
-					  <TextField floatingLabelText="Enter message"
+				  	<TextField floatingLabelText="Enter message"
 					  					 fullWidth={true}
 					  					 multiLine={true}
-					  					 ref={input => this._message = input}
+					  					 value={this.state.message}
+					  					 onChange={this.handleChange}
 					  					 required />
-			    </CardText>
+					 </CardText>
 			    <CardActions>
 			    	<RaisedButton label="Send" type="submit" />
 		    	</CardActions>

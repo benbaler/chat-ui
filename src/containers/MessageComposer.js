@@ -1,6 +1,6 @@
 import MessageComposer from '../components/MessageComposer'
 import { connect } from 'react-redux'
-import { addMessage, setUsername, setMessage, clearMessage } from '../actions'
+import { setUsername } from '../actions'
 
 const mapStateToProps = (state) => {
 	return {
@@ -13,9 +13,6 @@ const mapStateToProps = (state) => {
 // Add this dispach functions to the props of the component.
 const mapDispatchToProps = dispatch => ({
 	onNewMessage({username}) {
-		dispatch(
-			clearMessage()
-		)
 		dispatch(
 			setUsername(username)
 		)
