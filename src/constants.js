@@ -1,0 +1,9 @@
+const constants = {
+	SET_USERNAME: "SET_USERNAME",
+	SET_AVATAR: "SET_AVATAR",
+	ADD_MESSAGE: "ADD_MESSAGE",
+	SET_MESSAGE: "SET_MESSAGE",
+	CLEAR_MESSAGE: "CLEAR_MESSAGE"
+}
+
+export default constants

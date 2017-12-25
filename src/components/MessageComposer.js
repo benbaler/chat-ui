@@ -1,46 +1,57 @@
-import React, { Component } from 'react';
-import {Card, CardHeader, CardText, CardActions} from 'material-ui/Card';
-import TextField from 'material-ui/TextField';
-import RaisedButton from 'material-ui/RaisedButton';
+import React, { Component } from 'react'
+import {Card, CardHeader, CardText, CardActions} from 'material-ui/Card'
+import TextField from 'material-ui/TextField'
+import RaisedButton from 'material-ui/RaisedButton'
+import { socketConnect } from 'socket.io-react';
 
 class MessageComposer extends Component {
 	constructor(props) {
-    super(props);
-    this.state = {
-      messageText: '',
-      userName: '',
-    };
+		super(props)
+		this.onSubmit = this.onSubmit.bind(this);
+	}
 
-    this.updateName = this.updateName.bind(this);
-    this.sendMessage = this.sendMessage.bind(this);
-  }
-
-  updateName() {
-    this.setState({userName: ''});
-  }
-
-  sendMessage() {
-    this.setState({messageText: ''});
+  onSubmit = (e) =>  {
+  	e.preventDefault()
+  	const date = new Date().toString();
+    this.props.onNewMessage({
+    	username: this._username.getValue()
+    })
+    this.props.socket.emit('spotim/chat', {
+    	avatar: this.props.avatar,
+    	username: this._username.getValue(),
+    	date: date,
+    	text: this._message.getValue()
+    })
   }
 
   render() {
-    return (
-    	<Card>
-		    <CardHeader
-		      title={this.props.name}
-		      subtitle={(new Date().toString())}
-		      avatar={this.props.avatar}
-		    />
-		   	<CardText>
-			  	<TextField floatingLabelText="Enter your name" onChange={this.updateName} defaultValue={this.props.name} fullWidth={true} required />
-				  <TextField floatingLabelText="Enter message" multiLine={true} fullWidth={true} required />
-		    </CardText>
-		    <CardActions>
-		    	<RaisedButton label="Send" onClick={this.sendMessage} />
-	    	</CardActions>
-		  </Card>
-    );
-  }
+		const {avatar, username, message, onNewMessage} = this.props
+	  return (
+	  	<form onSubmit={this.onSubmit}>
+				<Card>
+			    <CardHeader
+			      title={username}
+			      avatar={avatar}
+			    />
+			   	<CardText>
+				  	<TextField floatingLabelText="Enter username"
+				  						 defaultValue={username}
+				  						 fullWidth={true}
+				  						 ref={input => this._username = input}
+				  						 required />
+					  <TextField floatingLabelText="Enter message"
+					  					 fullWidth={true}
+					  					 multiLine={true}
+					  					 ref={input => this._message = input}
+					  					 required />
+			    </CardText>
+			    <CardActions>
+			    	<RaisedButton label="Send" type="submit" />
+		    	</CardActions>
+		  	</Card>
+	  	</form>
+	  )
+	}
 }
 
-export default MessageComposer;
+export default socketConnect(MessageComposer)

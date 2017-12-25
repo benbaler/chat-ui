@@ -1,18 +1,18 @@
-import React, { Component } from 'react';
-import './Chat.css';
+import React, { Component } from 'react'
+import './Chat.css'
 
-import MessageList from './MessageList';
-import MessageComposer from './MessageComposer';
+import MessageList from '../containers/MessageList'
+import MessageComposer from '../containers/MessageComposer'
 
 class Chat extends Component {
   render() {
     return (
-      <div className="chat">
-      	<MessageList messages={this.props.messages}/>
-      	<MessageComposer avatar={''} name={'Ben'}/>
+    	<div className="chat">
+      	<MessageList />
+      	<MessageComposer />
       </div>
     );
   }
 }
 
-export default Chat;
+export default Chat

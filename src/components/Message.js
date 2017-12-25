@@ -1,15 +1,21 @@
-import React from 'react';
-import {Card, CardHeader, CardText} from 'material-ui/Card';
+import React from 'react'
+import {Card, CardHeader, CardText} from 'material-ui/Card'
 
-export const Message = ({avatar='',name='Ben', date=new Date().toString(), text='Blah Blah!'}) => (
-	<Card>
+import './Message.css'
+
+export const Message = ({avatar,
+												 username,
+												 date,
+												 message,
+												 highlightMessage}) => (
+	<Card className={highlightMessage ? 'highlight-message' : ''}>
     <CardHeader
-      title={name}
-      subtitle={date}
       avatar={avatar}
+      title={username}
+      subtitle={date}
     />
     <CardText>
-      {text}
+      {message}
     </CardText>
   </Card>
 )
